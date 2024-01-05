@@ -2,8 +2,8 @@
 <html lang="ja">
   <head>
     <meta charset="UTF-8">
-    <title><!--サイトタイトル--></title>
-    <meta name="description" content="サイトの説明">
+    <title>大文字小文字変換サイト(アルファベット)</title>
+    <meta name="description" content="アルファベットの大文字を小文字に小文字を大文字に変換するサイトです。">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- ファビコン -->
     <link rel="shortcut icon" href="img/favicon.ico">
@@ -24,7 +24,7 @@
     <link rel ="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
 
     <!--css読み込み-->
-    <link rel="stylesheet" href="css/<!--cssファイル名-->">
+    <link rel="stylesheet" href="css/pbf_alphabet_conversion.css">
     
     <!--Google の CDNを使用-->
     <!--(CDNを経由する方法であればjQueryをダウンロードする必要がない　バージョンが変わることがあるので注意すること)-->
@@ -37,19 +37,111 @@
     <!--#header-------------------------->
     <header id="header">
       <div class="logo">
-        <a href="#"></a>
+        <a href="#">大文字・小文字変換</a>
       </div>
+      <p>30文字まで</p>
     </header>
 
     <!--.container----------------------->
     <div class="container">
       <!--main----------------------------->
-      <main></main>
-      
-      <!--#footer-------------------------->
-      <footer id="footer" class="wrapper">
-        <p class="copyright">&copy; <!--サイトタイトル--></p>
-      </footer>
+      <main>
+
+        <div class="flex_area">
+
+          <div class="flex_left">
+            <div id="input_area">
+              <label for="input">入力欄</label>
+              <input type="text" id="input" required tabindex="1">
+            </div>
+          </div>
+
+          <div class="flex_right">
+            <!-- 下記は実装するか未定 -->
+            <div id="checkbox_area">
+              <ul>
+                <li>checkbox1</li>
+                <li>checkbox2</li>
+                <li>checkbox3</li>
+              </ul>
+            </div>
+          </div> 
+        </div>
+
+        <div id="convert_button_area">
+          <!-- convertText()未定義 -->
+          <button type="button" id="convert_button" onclick="convertText()" tabindex="2">変換する<br>(入力欄からtab + enterで出力可)</button>
+        </div>
+
+        <div class="flex_area">
+
+          <div class="flex_left">
+            <div id="result_area">
+              <label for="result">出力欄</label>
+              <div id="result"><!-- 出力結果 --></div>
+            </div>
+          </div>
+
+          <div class="flex_right">
+            <div id="reset_button_area">
+              <!-- 未定義 -->
+              <button type="button" id="reset_button" onclick="resetInput()" tabindex="3">リセット</button>
+            </div>
+          </div>
+        </div>
+      </main>
     </div>
+
+    <!--#footer-------------------------->
+    <footer id="footer" class="wrapper">
+      <p class="copyright">&copy; <!--サイトタイトル--></p>
+    </footer>
+
+    <script>
+      function convertText() {
+        // 入力欄の要素を取得
+        let inputElement = document.getElementById("input");
+
+        // 結果表示領域の要素を取得
+        let resultElement = document.getElementById("result");
+
+        // 入力値を取得
+        let inputValue = inputElement.value;
+
+        // 入力テキストの最大長を設定（例：10文字）
+        const maxLength = 30;
+
+        if (inputValue.length > maxLength) {
+          // 最大長を超える場合は警告を表示
+          resultElement.innerHTML = "<strong>エラー:</strong> 入力は" + maxLength + "文字以下にしてください。";
+          return;
+        }
+
+        // 大文字に変換して表示
+        let upperCaseText = inputValue.toUpperCase();
+        // <strong> タグでテキストを太字で表示
+        resultElement.innerHTML = "<strong>大文字:</strong> " + upperCaseText;
+
+        // 小文字に変換して表示
+        let lowerCaseText = inputValue.toLowerCase();
+        // <strong> タグでテキストを太字で表示
+        resultElement.innerHTML += "<br><strong>小文字:</strong> " + lowerCaseText;
+      }
+
+      function resetInput() {
+        // 入力欄の要素を取得
+        let inputElement = document.getElementById("input");
+
+        // 結果表示領域の要素を取得
+        let resultElement = document.getElementById("result");
+
+        // 入力欄をクリア
+        inputElement.value = '';
+
+        // 結果表示領域もクリア
+        resultElement.innerHTML = '';
+      }
+    </script>
+    
   </body>
 </html>
