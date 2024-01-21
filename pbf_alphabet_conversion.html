@@ -2,43 +2,30 @@
 <html lang="ja">
   <head>
     <meta charset="UTF-8">
-    <title>大文字小文字変換サイト(アルファベット)</title>
-    <meta name="description" content="アルファベットの大文字を小文字に小文字を大文字に変換するサイトです。">
+    <title>大文字・小文字変換 | アルファベット変換</title>
+    <meta name="description" content="アルファベットを大文字や小文字に変換する便利なPC専用サイト。テキスト入力するだけで、簡単でスムーズに大文字・小文字の変換が行えます。アルファベットの整形に最適なツールです。">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- リセットCSS -->
+    <link rel="stylesheet" href="https://unpkg.com/ress/dist/ress.min.css">
+
     <!-- ファビコン -->
     <link rel="shortcut icon" href="img/favicon.ico">
     <link rel="apple-touch-icon" href="apple-touch-icon-180x180.png" sizes="180x180">
-    <link rel="stylesheet" href="https://unpkg.com/ress/dist/ress.min.css">
-
-    <!-- slickのCSS slickを入れる場合に記述-->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.css">
 
     <!--Google Fonts設定-->
     <link rel=link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100;300;400;500;700;900&family=Noto+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
 
-    <!--Font Awesome読み込み-->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
-    <link rel ="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
-
     <!--css読み込み-->
     <link rel="stylesheet" href="css/pbf_alphabet_conversion.css">
-    
-    <!--Google の CDNを使用-->
-    <!--(CDNを経由する方法であればjQueryをダウンロードする必要がない　バージョンが変わることがあるので注意すること)-->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <!--jsファイル読み込み--（すべてのjsファイルを読み込む書いた順に実行される意識を持つこと）-->  
-    <script src="js/<!--jsファイル名-->" defer></script>
   </head>
 
   <body>
     <!--#header-------------------------->
     <header id="header">
-      <div class="logo">
-        <a href="#">大文字・小文字変換</a>
-      </div>
+      <h1 class="logo">大文字・小文字変換</h1>
       <p>30文字まで</p>
     </header>
 
@@ -47,101 +34,128 @@
       <!--main----------------------------->
       <main>
 
-        <div class="flex_area">
-
-          <div class="flex_left">
-            <div id="input_area">
-              <label for="input">入力欄</label>
-              <input type="text" id="input" required tabindex="1">
-            </div>
-          </div>
-
-          <div class="flex_right">
-            <!-- 下記は実装するか未定 -->
-            <div id="checkbox_area">
-              <ul>
-                <li>checkbox1</li>
-                <li>checkbox2</li>
-                <li>checkbox3</li>
-              </ul>
-            </div>
-          </div> 
-        </div>
-
-        <div id="convert_button_area">
-          <!-- convertText()未定義 -->
-          <button type="button" id="convert_button" onclick="convertText()" tabindex="2">変換する<br>(入力欄からtab + enterで出力可)</button>
+        <div id="input_area">
+          <label for="input">入力欄</label>
+          <input type="text" id="input" required>
         </div>
 
         <div class="flex_area">
-
           <div class="flex_left">
-            <div id="result_area">
-              <label for="result">出力欄</label>
-              <div id="result"><!-- 出力結果 --></div>
+            <div id="output_area">
+              <div class="output-label">出力欄</div>
+              <div id="output"><!-- 出力結果 --></div>
+              <div id="error-message" class="error-message"></div>
             </div>
           </div>
 
           <div class="flex_right">
             <div id="reset_button_area">
-              <!-- 未定義 -->
-              <button type="button" id="reset_button" onclick="resetInput()" tabindex="3">リセット</button>
+              <!-- html要素の属性にイベントハンドラを指定 resetInput() -->
+              <button type="button" id="reset_button" onclick="resetInput()">リセット</button>
             </div>
           </div>
         </div>
+
       </main>
+
     </div>
 
     <!--#footer-------------------------->
-    <footer id="footer" class="wrapper">
-      <p class="copyright">&copy; <!--サイトタイトル--></p>
+    <footer id="footer">
+      <p class="copyright">&copy; 2024 fumima_ru | 2024.1.〇〇_new_release</p>
+    </footer>
+
+    <footer id="responsive_footer">
+      <p class="copyright">&copy; 2024 fumima_ru<br>2024.1.〇〇_new_release</p>
     </footer>
 
     <script>
-      function convertText() {
-        // 入力欄の要素を取得
-        let inputElement = document.getElementById("input");
+    /* 仮引数(event)にはイベントに応じたイベントオブジェクトが含まれる */
 
-        // 結果表示領域の要素を取得
-        let resultElement = document.getElementById("result");
+      let previousInputValue = "";
 
-        // 入力値を取得
-        let inputValue = inputElement.value;
+      window.addEventListener('load', function() {
+        let inputField = document.getElementById('input');
 
-        // 入力テキストの最大長を設定（例：10文字）
+        // inputイベントがキー入力と同時に発生する
+        inputField.addEventListener('input', function(event) {
+          convertText(event);
+        });
+
+        // ペースト時の処理を追加(イベント)
+        inputField.addEventListener('paste', function(event) {
+          setTimeout(function() {
+            // ペーストされたテキストの取得
+            let pastedText = (event.clipboardData || window.clipboardData).getData('text');
+            
+            // ペーストされたテキストの最後の文字を取得
+            // 入力値を最新の状態に保持
+            let lastChar = pastedText.charAt(pastedText.length - 1);
+            previousInputValue = lastChar;
+          }, 0);
+        });
+      });
+
+      function convertText(event) {
+        let inputField = document.getElementById('input');
+        let outputElement = document.getElementById('output');
+        let errorMessageElement = document.getElementById('error-message');
+        // 前後のスペースを取り除く
+        let inputValue = inputField.value.trim();
+
+        // 文字数を30文字までに指定
         const maxLength = 30;
 
-        if (inputValue.length > maxLength) {
-          // 最大長を超える場合は警告を表示
-          resultElement.innerHTML = "<strong>エラー:</strong> 入力は" + maxLength + "文字以下にしてください。";
-          return;
+        // 入力が変更された場合の処理
+        if (inputValue !== previousInputValue) {
+          previousInputValue = inputValue;
+
+          // HTMLエスケープを適用
+          let escapedInputValue = escapeHTML(inputValue);
+
+          if (escapedInputValue && !/^[a-zA-Zａ-ｚＡ-Ｚ1-9.｡-ﾟ\-/_!?"'`$&|@＠()=#:;,^<>{}\+\*\~\[\] 　]+$/.test(escapedInputValue)) {
+              errorMessageElement.textContent = '注意: アルファベット以外は変換できません。';
+              
+          } else {
+              errorMessageElement.textContent = "";
+          }
+
+          if (escapedInputValue.length > maxLength) {
+            outputElement.innerHTML = '<strong>エラー:</strong> 入力は' + maxLength + '文字以下にしてください。';
+            return;
+          }
+
+          let upperCaseText = escapedInputValue.toUpperCase();
+          outputElement.innerHTML = '<strong>大文字:</strong> ' + upperCaseText;
+
+          let lowerCaseText = escapedInputValue.toLowerCase();
+          outputElement.innerHTML += '<br><strong>小文字:</strong> ' + lowerCaseText;
         }
-
-        // 大文字に変換して表示
-        let upperCaseText = inputValue.toUpperCase();
-        // <strong> タグでテキストを太字で表示
-        resultElement.innerHTML = "<strong>大文字:</strong> " + upperCaseText;
-
-        // 小文字に変換して表示
-        let lowerCaseText = inputValue.toLowerCase();
-        // <strong> タグでテキストを太字で表示
-        resultElement.innerHTML += "<br><strong>小文字:</strong> " + lowerCaseText;
       }
 
       function resetInput() {
-        // 入力欄の要素を取得
-        let inputElement = document.getElementById("input");
+        let inputField = document.getElementById('input');
+        let outputElement = document.getElementById('output');
 
-        // 結果表示領域の要素を取得
-        let resultElement = document.getElementById("result");
+        inputField.value = '';
+        outputElement.innerHTML = '';
+        // クリア時にエラーメッセージもクリア
+        document.getElementById('error-message').textContent = '';
+      }
 
-        // 入力欄をクリア
-        inputElement.value = '';
-
-        // 結果表示領域もクリア
-        resultElement.innerHTML = '';
+      // HTMLエスケープ関数
+      function escapeHTML(text) {
+        return text.replace(/[&<>"']/g, function(match) {
+          return {
+            '&': '&amp;',
+            '<': '&lt;',
+            '>': '&gt;',
+            '"': '&quot;',
+            "'": '&#039;'
+          }[match];
+        });
       }
     </script>
-    
+      
   </body>
 </html>
