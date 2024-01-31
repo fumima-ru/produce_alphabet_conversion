@@ -115,7 +115,6 @@
 
           if (escapedInputValue && !/^[a-zA-Zａ-ｚＡ-Ｚ1-9.｡-ﾟ\-/_!?"'`$&|@＠()=#:;,^<>{}\+\*\~\[\] 　]+$/.test(escapedInputValue)) {
               errorMessageElement.textContent = '注意: アルファベット以外は変換できません。';
-              errorMessageElement.style.padding = '5px 0';
           } else {
               errorMessageElement.textContent = "";
           }
@@ -136,6 +135,7 @@
       function resetInput() {
         let inputField = document.getElementById('input');
         let outputElement = document.getElementById('output');
+        let errorMessageElement = document.getElementById('error-message');
 
         inputField.value = '';
         outputElement.innerHTML = '';
