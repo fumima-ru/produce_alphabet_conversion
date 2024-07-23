@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8">
     <title>大文字・小文字変換 | アルファベット変換</title>
-    <meta name="description" content="アルファベットを大文字や小文字に変換する便利なサイト。テキスト入力するだけで、簡単でスムーズに大文字・小文字の変換が行えます。アルファベットの整形に最適なツールです。">
+    <meta name="description" content="アルファベットを大文字や小文字に変換する便利な無料ツール。テキスト入力やコピペするだけで、簡単スムーズに大文字・小文字の変換が行えます。変換ボタンを無くし入力と同時に変換することで時短やショートカットを可能に。変換可能文字数は30文字まで対応。アルファベットの整形に最適であり省スペースで使用できます。">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <!-- リセットCSS -->
@@ -25,53 +25,51 @@
   <body>
     <!--#header-------------------------->
     <header id="header">
-      <h1 class="logo">大文字・小文字変換</h1>
-      <p>30文字まで</p>
+      <h1 class="header__site-title">
+        <a href="produce_alphabet_conversion.html">大文字・小文字変換</a>
+      </h1>
+      <p class="header__note">30文字まで</p>
     </header>
 
     <!--.container----------------------->
     <div class="container">
       <!--main----------------------------->
       <main>
-
-        <div id="input_area">
+        <div id="input-area">
           <label for="input">入力欄</label>
           <input type="text" id="input" required>
         </div>
 
-        <div class="flex_area">
-          <div class="flex_left">
-            <div id="output_area">
-              <div class="output-label">出力欄</div>
-              <div id="output"><!-- 出力結果 --></div>
-              <div id="error-message" class="error-message"></div>
+        <div class="flex-area">
+          <div class="flex-left">
+            <div id="output-area">
+              <div class="output-area__label">出力欄</div>
+              <div id="output-area__output"><!-- 出力結果 --></div>
+              <div id="output-area__error-message"></div>
             </div>
           </div>
 
-          <div class="flex_right">
-            <div id="reset_button_area">
+          <div class="flex-right">
+            <div id="reset-button-area">
               <!-- html要素の属性にイベントハンドラを指定 resetInput() -->
-              <button type="button" id="reset_button" onclick="resetInput()">リセット</button>
+              <button type="button" id="reset-button" onclick="resetInput()">リセット</button>
             </div>
           </div>
         </div>
-
       </main>
-
     </div>
 
     <!--#footer-------------------------->
     <footer id="footer">
-      <p class="copyright">&copy; 2024 fumima_ru | 2024.1.22_new_release</p>
+      <p class="footer__copyright">&copy; 2024 fumima_ru | 2024.1.22_new_release</p>
     </footer>
 
-    <footer id="responsive_footer">
-      <p class="copyright">&copy; 2024 fumima_ru<br>2024.1.22_new_release</p>
+    <footer id="responsive-footer">
+      <p class="responsive-footer__copyright">&copy; 2024 fumima_ru<br>2024.1.22_new_release</p>
     </footer>
 
+    <!--script--------------------------->
     <script>
-    /* 仮引数(event)にはイベントに応じたイベントオブジェクトが含まれる */
-
       let previousInputValue = "";
 
       window.addEventListener('load', function() {
@@ -85,11 +83,7 @@
         // ペースト時の処理を追加(イベント)
         inputField.addEventListener('paste', function(event) {
           setTimeout(function() {
-            // ペーストされたテキストの取得
             let pastedText = (event.clipboardData || window.clipboardData).getData('text');
-            
-            // ペーストされたテキストの最後の文字を取得
-            // 入力値を最新の状態に保持
             let lastChar = pastedText.charAt(pastedText.length - 1);
             previousInputValue = lastChar;
           }, 0);
@@ -98,8 +92,8 @@
 
       function convertText(event) {
         let inputField = document.getElementById('input');
-        let outputElement = document.getElementById('output');
-        let errorMessageElement = document.getElementById('error-message');
+        let outputElement = document.getElementById('output-area__output');
+        let errorMessageElement = document.getElementById('output-area__error-message');
         // 前後のスペースを取り除く
         let inputValue = inputField.value.trim();
 
@@ -134,13 +128,13 @@
 
       function resetInput() {
         let inputField = document.getElementById('input');
-        let outputElement = document.getElementById('output');
+        let outputElement = document.getElementById('output-area__output');
         let errorMessageElement = document.getElementById('error-message');
 
         inputField.value = '';
         outputElement.innerHTML = '';
         // クリア時にエラーメッセージもクリア
-        document.getElementById('error-message').textContent = '';
+        document.getElementById('output-area__error-message').textContent = '';
       }
 
       // HTMLエスケープ関数
