@@ -9,25 +9,30 @@ body {
   font-size: 1rem;
 }
 
+a {
+  color: #050507;
+  text-decoration: none;
+}
+
 img {
   max-width: 100%;
 }
 
-.error-message {
+#output-area__error-message {
   font-weight: bold;
   text-align: center;
   margin-top: 10px;
 }
 
 /* --#header----------------------- */
-#header h1 {
+.header__site-title {
   font-size: 2rem;
   text-align: center;
   padding: 10px 10px 0 10px;
   margin: 10px auto 0;
 }
 
-#header p {
+.header__note {
   text-align: center;
 }
 
@@ -39,15 +44,15 @@ img {
 }
 
 /* --main----------------------- */
-.flex_area {
+.flex-area {
   display: flex;
   justify-content: center;
 }
 
-.flex_left {
+.flex-left {
   margin-right: 10px;
 }
-.flex_right {
+.flex-right {
   margin-left: 10px;
 }
 
@@ -58,33 +63,33 @@ input {
   padding: 0 10px;
 }
 
-#input_area {
+#input-area {
   width: 350px;
   height: 70px;
   margin-bottom: 100px;
   margin-left: 30px;
 }
 
-#input_area,
-#output_area {
+#input-area,
+#output-area {
   position: relative;
   border: 1px solid #050507;
   border-radius: 10px;
 }
 
-#output_area {
+#output-area {
   width: 580px;
   height: 100px;
 }
 
-#output {
+#output-area__output {
   width: 100%;
   height: 100%;
   padding: 25px 15px;
 }
 
 label,
-.output-label {
+.output-area__label {
   position: absolute;
   top: -25px;
   left: 10px;
@@ -95,12 +100,12 @@ label,
   font-weight: bold;
 }
 
-#reset_button_area {
+#reset-button-area {
   width: 100px;
   height: 100px;
 }
 
-#reset_button {
+#reset-button {
   width: 100%;
   height: 100%;
   box-sizing: border-box;
@@ -121,12 +126,12 @@ button:hover {
   margin: 10px;
 }
 
-#responsive_footer {
+#responsive-footer {
   display: none;
 }
 
 @media screen and (max-width: 740px) {
-  #header h1 {
+  .header__site-title {
     font-size: 1.5rem;
     margin: 10px auto 7px;
   }
@@ -136,35 +141,35 @@ button:hover {
     margin: 20px auto;
   }
 
-  .flex_area {
+  .flex-area {
     flex-direction: column;
   }
 
-  .flex_left {
+  .flex-left {
     margin-right: 0;
   }
-  .flex_right {
+  .flex-right {
     margin-left: 0;
   }
 
-  #input_area {
+  #input-area {
     width: 280px;
     margin: 0 auto 50px auto;
   }
 
-  #output_area {
+  #output-area {
     width: 280px;
     margin: 0 auto 50px auto;
     height: 200px;
     overflow-wrap: break-word;
   }
 
-  .error-message {
+  #output-area__error-message {
     font-size: 0.7rem;
     margin-top: 5px;
   }
   
-  #reset_button_area {
+  #reset-button-area {
     width: 280px;
     height: 70px;
     margin: 0 auto;
@@ -174,7 +179,7 @@ button:hover {
     display: none;
   }
 
-  #responsive_footer {
+  #responsive-footer {
     display: block;
     text-align: center;
     padding: 10px;
