@@ -130,6 +130,36 @@ button:hover {
   display: none;
 }
 
+#siteinfo {
+  margin-bottom: 20px;
+}
+
+#siteinfo ul {
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  line-height: 1.5;
+}
+
+.siteinfo__list {
+  display: inline;
+}
+
+#siteinfo a {
+  color: #1a0dab;
+}
+
+#siteinfo a:hover {
+  text-decoration: underline;
+}
+
+#siteinfo span {
+  opacity: 0.5;
+  padding: 0 0.5rem;
+}
+
+
 @media screen and (max-width: 740px) {
   .header__site-title {
     font-size: 1.5rem;
@@ -175,7 +205,7 @@ button:hover {
     margin: 0 auto;
   }
 
-  #footer {
+  .footer__copyright {
     display: none;
   }
 
@@ -184,5 +214,12 @@ button:hover {
     text-align: center;
     padding: 10px;
     margin: 10px;
+  }
+
+    .siteinfo__list a {
+    font-size: 0.85rem;
+  }
+  .footer__copyright {
+    font-size: 0.85rem;
   }
 }
